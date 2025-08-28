@@ -1,10 +1,12 @@
-import { ChakraProvider } from '@chakra-ui/react'
-import { Providers } from './providers'
-import Navigation from '../components/Navigation'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
 
-export const metadata = {
-  title: 'GREIA Platform',
-  description: 'A comprehensive life\'s operating system',
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: 'GREIA - Life\'s Operating System',
+  description: 'Connect property, business, services and community in one seamless experience',
 }
 
 export default function RootLayout({
@@ -14,11 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Providers>
-          <Navigation />
-          <main>{children}</main>
-        </Providers>
+      <body className={inter.className}>
+        <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+          {children}
+        </main>
       </body>
     </html>
   )
