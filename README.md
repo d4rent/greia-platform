@@ -1,79 +1,71 @@
-# GREIA Platform
+# GREIA OS
 
-A comprehensive life's operating system for property, services, lifestyle and social connectivity.
+A beautifully designed life operating system connecting property, business, services, and community into one seamless experience.
 
-## Project Structure
+## Vision
 
-```
-greia/
-├── apps/
-│   ├── web/               # Next.js/React (S3 + CloudFront)
-│   │   ├── src/
-│   │   ├── public/
-│   │   ├── next.config.js
-│   │   └── package.json
-│   ├── api/               # Node (NestJS) on Elastic Beanstalk
-│   │   ├── src/
-│   │   │   └── modules/
-│   │   │       ├── auth/
-│   │   │       ├── users/
-│   │   │       ├── businesses/
-│   │   │       └── listings/
-│   │   ├── prisma/
-│   │   ├── Dockerfile
-│   │   └── package.json
-│   └── worker/           # Background jobs
-│       ├── src/
-│       ├── Dockerfile
-│       └── package.json
-├── packages/
-│   ├── shared/          # DTOs, validators, types
-│   ├── ui/             # Design system
-│   └── utils/          # Common helpers
-└── infra/
-    ├── eb/             # Elastic Beanstalk config
-    ├── cf/             # CloudFront & S3 deployment
-    └── terraform/      # Infrastructure as Code
-```
+GREIA OS is built with a minimalist design philosophy, focusing on elegant user experiences and clean architecture. Our platform serves as the central hub for modern life, connecting:
 
-## Core Features
-
-### Properties
-- Real estate listings (sale, rent, commercial)
-- Verified agents and documentation
-- Property search and filtering
-
-### Connect
-- Built-in news from trusted sources
-- Social connectivity features
-- Messaging system
-
-### Services
-- Directory of verified professionals
-- Booking and scheduling system
-- Professional portfolio management
-
-### Lifestyle
-- Car rentals
-- Restaurant bookings
-- City tours
-- Lifestyle services
+- **Properties**: Curated real estate listings with verified documentation
+- **Connect**: Integrated news and social features from trusted sources
+- **Services**: Verified professional directory spanning multiple industries
+- **Lifestyle**: Seamless access to car rentals, dining, and city experiences
 
 ## Tech Stack
 
-- Frontend: Next.js + TypeScript
-- Backend: Node.js (NestJS)
-- Database: Amazon Aurora (PostgreSQL)
-- Search: Amazon OpenSearch
-- Cache/Queues: Redis, SQS/SNS
-- Authentication: Cognito/JWT
-- Storage: S3 + CloudFront
-- Deployment: AWS (Elastic Beanstalk)
+- **Frontend**: Next.js (App Router) + TypeScript + Tailwind CSS
+- **Backend**: Node.js with NestJS/Express
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: JWT + Cookie-based sessions
+- **Cloud**: AWS (S3, CloudFront, Elastic Beanstalk)
+- **Payments**: Stripe (Core, Connect, Tax, Invoicing)
+
+## Core Features
+
+- Apple-inspired UI/UX with fluid animations and intuitive flows
+- Professional verification system with document management
+- Intelligent marketplace with smart matching algorithms
+- Integrated messaging system for seamless communication
+- Comprehensive booking and payment infrastructure
+- Advanced search with location-aware capabilities
 
 ## Getting Started
 
-Documentation for setup and development coming soon.
+```bash
+# Install dependencies
+pnpm install
+
+# Set up environment variables
+cp .env.example .env.local
+
+# Run development server
+pnpm dev
+
+# Build for production
+pnpm build
+```
+
+## Architecture
+
+The platform follows a clean, modular architecture:
+
+```
+greia-os/
+├── apps/
+│   ├── web/          # Next.js frontend
+│   ├── api/          # Backend API
+│   └── worker/       # Background jobs
+├── packages/
+│   ├── shared/       # Common types/utilities
+│   ├── ui/           # Design system
+│   └── config/       # Shared configuration
+└── infrastructure/   # AWS/deployment configs
+```
+
+## Contributing
+
+GREIA OS is currently in private development. Contact the team for contribution guidelines.
 
 ## License
 
-Copyright © 2025 GREIA. All rights reserved.
+Proprietary software. All rights reserved.
