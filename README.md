@@ -1,71 +1,109 @@
-# GREIA OS
+# GREIA Platform
 
-A beautifully designed life operating system connecting property, business, services, and community into one seamless experience.
+GREIA is a comprehensive "life's operating system" that connects property, business, services, and community into one seamless platform. Built with modern web technologies and focused on providing an exceptional user experience.
 
-## Vision
+## Features
 
-GREIA OS is built with a minimalist design philosophy, focusing on elegant user experiences and clean architecture. Our platform serves as the central hub for modern life, connecting:
-
-- **Properties**: Curated real estate listings with verified documentation
-- **Connect**: Integrated news and social features from trusted sources
-- **Services**: Verified professional directory spanning multiple industries
-- **Lifestyle**: Seamless access to car rentals, dining, and city experiences
+- **Properties**: Browse and list properties for rent or sale
+- **Connect**: Stay updated with local news and network with professionals
+- **Services**: Find and book verified professional services
+- **Lifestyle**: Discover local experiences, dining, and entertainment
 
 ## Tech Stack
 
-- **Frontend**: Next.js (App Router) + TypeScript + Tailwind CSS
-- **Backend**: Node.js with NestJS/Express
-- **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: JWT + Cookie-based sessions
-- **Cloud**: AWS (S3, CloudFront, Elastic Beanstalk)
-- **Payments**: Stripe (Core, Connect, Tax, Invoicing)
-
-## Core Features
-
-- Apple-inspired UI/UX with fluid animations and intuitive flows
-- Professional verification system with document management
-- Intelligent marketplace with smart matching algorithms
-- Integrated messaging system for seamless communication
-- Comprehensive booking and payment infrastructure
-- Advanced search with location-aware capabilities
+- **Frontend**: Next.js 13 (App Router) + TypeScript
+- **Styling**: Tailwind CSS + Custom Design System
+- **State Management**: Zustand + TanStack Query
+- **Database**: Prisma with PostgreSQL
+- **Payments**: Stripe Integration
+- **Authentication**: Built-in auth system
 
 ## Getting Started
 
-```bash
-# Install dependencies
-pnpm install
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/d4rent/greia-platform.git
+   cd greia-platform
+   ```
 
-# Set up environment variables
-cp .env.example .env.local
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
 
-# Run development server
-pnpm dev
+3. Set up environment variables:
+   ```bash
+   cp .env.example .env.local
+   ```
+   Fill in the required environment variables in `.env.local`
 
-# Build for production
-pnpm build
+4. Set up the database:
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Project Structure
+
+```
+greia-platform/
+├── src/
+│   ├── app/                 # Next.js 13 App Router pages
+│   ├── components/          # Reusable components
+│   ├── lib/                 # Utility functions and configurations
+│   ├── stores/             # Zustand state management
+│   └── styles/             # Global styles and Tailwind config
+├── prisma/                 # Database schema and migrations
+├── public/                 # Static assets
+└── package.json           # Project dependencies and scripts
 ```
 
-## Architecture
+## Design System
 
-The platform follows a clean, modular architecture:
+The platform uses a custom design system with:
+- Custom gradients (Warm & Cold themes)
+- GREIA Poster font for headlines
+- Consistent spacing and component styling
+- Responsive grid layouts
+- Accessible UI components
 
-```
-greia-os/
-├── apps/
-│   ├── web/          # Next.js frontend
-│   ├── api/          # Backend API
-│   └── worker/       # Background jobs
-├── packages/
-│   ├── shared/       # Common types/utilities
-│   ├── ui/           # Design system
-│   └── config/       # Shared configuration
-└── infrastructure/   # AWS/deployment configs
-```
+## Environment Variables
+
+Required environment variables:
+- `DATABASE_URL`: PostgreSQL connection string
+- `STRIPE_SECRET_KEY`: Stripe API secret key
+- `STRIPE_WEBHOOK_SECRET`: Stripe webhook signing secret
+- `AWS_S3_BUCKET`: S3 bucket for media storage
+- `JWT_SECRET`: Secret for JWT authentication
+- See `.env.example` for all required variables
 
 ## Contributing
 
-GREIA OS is currently in private development. Contact the team for contribution guidelines.
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a pull request
 
 ## License
 
-Proprietary software. All rights reserved.
+This project is proprietary software. All rights reserved.
+
+## Support
+
+For support or inquiries, please contact support@greia.com
