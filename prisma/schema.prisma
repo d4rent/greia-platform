@@ -1,0 +1,244 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User and Organization models
+model User {
+  id                String              @id @default(cuid())
+  email             String              @unique
+  name              String?
+  image             String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  role              UserRole            @default(USER)
+  stripeCustomerId  String?             @unique
+  stripeAccountId   String?             @unique
+  organization      Organization?        @relation(fields: [organizationId], references: [id])
+  organizationId    String?
+  preferences       UserPreference?
+  properties        Property[]
+  services          Service[]
+  bookings         Booking[]
+  verifications     AgentVerification[]
+  claims            PropertyClaim[]
+  exposureCampaigns ExposureCampaign[]
+  subscriptions     Subscription[]
+}
+
+model Organization {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  logo        String?
+  website     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  users       User[]
+  verified    Boolean   @default(false)
+}
+
+model UserPreference {
+  id        String   @id @default(cuid())
+  theme     Theme    @default(OCEAN)
+  darkMode  Boolean  @default(false)
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Property and Service models
+model Property {
+  id          String         @id @default(cuid())
+  title       String
+  description String
+  price       Float
+  location    String
+  images      String[]
+  type        PropertyType
+  status      PropertyStatus @default(PENDING)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  owner       User           @relation(fields: [ownerId], references: [id])
+  ownerId     String
+  claims      PropertyClaim[]
+}
+
+model Service {
+  id          String        @id @default(cuid())
+  title       String
+  description String
+  price       Float
+  category    ServiceCategory
+  status      ServiceStatus @default(PENDING)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  provider    User          @relation(fields: [providerId], references: [id])
+  providerId  String
+  bookings    Booking[]
+}
+
+// Verification and Claims
+model AgentVerification {
+  id            String             @id @default(cuid())
+  documents     String[]
+  status        VerificationStatus @default(PENDING)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  agent         User              @relation(fields: [agentId], references: [id])
+  agentId       String
+  reviewedAt    DateTime?
+  reviewNotes   String?
+}
+
+model PropertyClaim {
+  id            String       @id @default(cuid())
+  property      Property     @relation(fields: [propertyId], references: [id])
+  propertyId    String
+  agent         User         @relation(fields: [agentId], references: [id])
+  agentId       String
+  status        ClaimStatus  @default(PENDING)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  convertedAt   DateTime?
+  commission    Float?
+}
+
+// Bookings and Payments
+model Booking {
+  id            String        @id @default(cuid())
+  service       Service       @relation(fields: [serviceId], references: [id])
+  serviceId     String
+  customer      User          @relation(fields: [customerId], references: [id])
+  customerId    String
+  status        BookingStatus @default(REQUESTED)
+  startTime     DateTime
+  endTime       DateTime
+  timezone      String
+  totalAmount   Float
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  payment       Payment?
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  booking       Booking       @relation(fields: [bookingId], references: [id])
+  bookingId     String        @unique
+  amount        Float
+  currency      String        @default("EUR")
+  stripePaymentId String?     @unique
+  status        PaymentStatus @default(PENDING)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+// Marketing and Subscriptions
+model ExposureCampaign {
+  id        String          @id @default(cuid())
+  tier      ExposureTier
+  user      User            @relation(fields: [userId], references: [id])
+  userId    String
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model Subscription {
+  id               String             @id @default(cuid())
+  user             User               @relation(fields: [userId], references: [id])
+  userId           String
+  type             SubscriptionType
+  status           SubscriptionStatus @default(ACTIVE)
+  stripeSubscriptionId String?        @unique
+  currentPeriodEnd DateTime
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+// Enums
+enum UserRole {
+  USER
+  AGENT
+  ADMIN
+}
+
+enum Theme {
+  OCEAN
+  SUNSET
+  NEUTRAL
+}
+
+enum PropertyType {
+  RESIDENTIAL
+  COMMERCIAL
+  LAND
+}
+
+enum PropertyStatus {
+  PENDING
+  UNDER_REVIEW
+  LIVE
+  REJECTED
+}
+
+enum ServiceCategory {
+  CREATIVE
+  ENGINEERING
+  FINANCIAL
+  TRADES
+  OTHER
+}
+
+enum ServiceStatus {
+  PENDING
+  UNDER_REVIEW
+  LIVE
+  REJECTED
+}
+
+enum VerificationStatus {
+  PENDING
+  UNDER_REVIEW
+  VERIFIED
+  REJECTED
+}
+
+enum ClaimStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CONVERTED
+}
+
+enum BookingStatus {
+  REQUESTED
+  ACCEPTED
+  DECLINED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum ExposureTier {
+  BASIC
+  PLUS
+  PRO
+}
+
+enum SubscriptionType {
+  MEMBERSHIP
+  SERVICE_WEEKLY
+}
