@@ -1,0 +1,29 @@
+{
+  "name": "greia-platform",
+  "version": "1.0.0",
+  "description": "GREIA Platform - A comprehensive life's operating system",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.0",
+    "typescript": "^5.0.0",
+    "prettier": "^2.8.8",
+    "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "yarn@3.6.0"
+}
