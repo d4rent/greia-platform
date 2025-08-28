@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "GREIA Poster";
+  src: url("/fonts/greia-poster.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Theme gradients */
+  --greia-warm-start: #FF8934;
+  --greia-warm-end: #FF176B;
+  --greia-warm-180: linear-gradient(180deg, var(--greia-warm-start) 0%, var(--greia-warm-end) 100%);
+  --greia-warm-90: linear-gradient(90deg, var(--greia-warm-start) 0%, var(--greia-warm-end) 100%);
+  
+  --greia-cold-start: #3360ED;
+  --greia-cold-end: #0BD3A4;
+  --greia-cold-180: linear-gradient(180deg, var(--greia-cold-start) 0%, var(--greia-cold-end) 100%);
+  --greia-cold-90: linear-gradient(90deg, var(--greia-cold-start) 0%, var(--greia-cold-end) 100%);
+}
+
+/* Base styles */
+body {
+  @apply bg-white text-gray-900 font-greia-body;
+}
+
+/* Typography */
+.hero-title {
+  @apply font-greia-poster tracking-wider leading-none uppercase text-white;
+  text-shadow: 0 6px 30px rgba(0,0,0,0.12);
+}
+
+.h-section {
+  @apply font-greia-poster uppercase;
+}
+
+/* Theme variants */
+.theme-warm .header,
+.theme-warm .footer {
+  background: var(--greia-warm-90);
+}
+
+.theme-cold .header,
+.theme-cold .footer {
+  background: var(--greia-cold-90);
+}
+
+/* Components */
+.card {
+  @apply rounded-card bg-white shadow-card;
+}
+
+.panel {
+  @apply rounded-panel bg-white shadow-elev;
+}
+
+.button-primary {
+  @apply rounded-button text-white px-5 py-3;
+}
+
+.theme-warm .button-primary {
+  background: var(--greia-warm-start);
+}
+
+.theme-cold .button-primary {
+  background: var(--greia-cold-start);
+}
+
+/* Layout */
+.container {
+  @apply w-[min(1200px,92%)] mx-auto;
+}
+
+.grid-12 {
+  @apply grid grid-cols-12 gap-5;
+}
+
+@media (max-width: 1200px) {
+  .grid-12 {
+    @apply gap-4;
+  }
+}
+
+@media (max-width: 900px) {
+  .grid-12 {
+    @apply grid-cols-6;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-12 {
+    @apply grid-cols-4;
+  }
+}
+
+/* Property/Service cards */
+.property-card img {
+  @apply block w-full aspect-[4/3] rounded-none;
+}
+
+.property-card .content {
+  @apply p-4;
+}
+
+.profile-banner {
+  @apply h-[200px] rounded-card;
+  background: var(--greia-cold-90);
+}
